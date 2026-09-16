@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "lib": ["ES2023", "DOM"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "jsx": "react-jsx",
+    "skipLibCheck": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": false,
+    "noEmit": false
+  },
+  "include": ["src"],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.stories.tsx",
+    "src/App.tsx",
+    "src/main.tsx"
+  ]
+}
