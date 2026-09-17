@@ -1,8 +1,19 @@
 # @aaru/ui-kit
 
-A small, accessible React component library built with TypeScript and Tailwind CSS. Eight components covering the basics you need in most apps: buttons, forms, feedback, and layout.
+A small, accessible React component library. Eight reusable components — buttons, a modal, form inputs, a card, a badge, and tabs — built with TypeScript and Tailwind CSS, documented in Storybook, and covered by Jest + React Testing Library tests.
 
-**[View the live Storybook →](#deploying-storybook)** (link goes live once deployed, see below)
+## The problem this solves
+
+Most projects rebuild the same handful of UI primitives (a button, a form field, a modal) from scratch every time, with slightly different accessibility behavior and no shared test coverage. This library centralizes those primitives once, tested and documented, so they can be reused across projects instead of re-implemented.
+
+## Key features
+
+- 8 components covering action, overlay, form-input, and layout/feedback needs
+- Full TypeScript types on every prop
+- Every interactive component is keyboard accessible (focus trap in the modal, arrow-key navigation in tabs, `aria-invalid`/`aria-describedby` wiring on form inputs)
+- Every component documented and demoed interactively in Storybook
+- Every component covered by Jest + React Testing Library tests, run in CI
+- Builds to both ESM and CommonJS with bundled TypeScript declarations
 
 ## Components
 
@@ -17,13 +28,41 @@ A small, accessible React component library built with TypeScript and Tailwind C
 | `Badge` | Small status/label pill with five tones |
 | `Tabs` | Accessible tab list following the WAI-ARIA pattern, with arrow-key navigation |
 
-Every component is keyboard accessible and wired up with proper ARIA attributes (`aria-invalid`, `aria-describedby`, `role="dialog"`, `role="tablist"`, and so on).
+Full prop-level reference: [COMPONENT_GUIDE.md](./COMPONENT_GUIDE.md).
 
-## Install
+## Tech stack
+
+React 19, TypeScript, Tailwind CSS, Vite (library mode), Storybook 10, Jest, React Testing Library, pnpm. Full breakdown with versions and rationale: [PROJECT_DOCUMENTATION.md](./PROJECT_DOCUMENTATION.md).
+
+## Storybook
+
+Every component has a story file covering its default state, its variants, and (for interactive components) a `play`-function story that scripts a real interaction (click, type, keyboard navigation) and asserts on the result.
+
+```bash
+pnpm storybook
+```
+
+opens the interactive component browser at `http://localhost:6006`.
+
+**Public Storybook URL:** not yet deployed. A GitHub Actions workflow (`.github/workflows/deploy-storybook.yml`) is already set up to build and deploy Storybook to GitHub Pages on every push to `main` — see [PUBLISHING.md](./PUBLISHING.md) for the one settings toggle needed to turn it on.
+
+## Testing
+
+36 tests across the 8 component test files, run with Jest and React Testing Library. Tests query by role and label text (not CSS class), so they verify behavior rather than markup structure. Full detail: [TESTING.md](./TESTING.md).
+
+## Package status
+
+Not yet published to the npm registry. `package.json` is fully configured for publishing (`exports` map, `files`, peer dependencies on React) — publishing is a `pnpm publish` away once the package scope is confirmed. See [PUBLISHING.md](./PUBLISHING.md).
+
+## Installation
+
+This package manager for this project is **pnpm**. All commands below use pnpm.
 
 ```bash
 pnpm add @aaru/ui-kit
 ```
+
+## Basic usage
 
 ```tsx
 import { Button, Card } from '@aaru/ui-kit';
@@ -38,64 +77,6 @@ function App() {
 }
 ```
 
-## Local development
-
-```bash
-pnpm install
-pnpm dev          # Vite dev server for src/App.tsx (a scratch playground)
-pnpm storybook    # Storybook at http://localhost:6006
-```
-
-## Testing
-
-Interaction tests are written with Jest and React Testing Library, one test file per component, colocated next to the component (`Button.test.tsx` sits beside `Button.tsx`).
-
-```bash
-pnpm test              # run once
-pnpm test:watch    # watch mode
-pnpm test:coverage # with coverage report
-```
-
-Storybook stories also include `play` functions (click, type, keyboard-nav interactions) so the same behavior is documented and demoed visually in Storybook, separate from the Jest suite.
-
-## Building the library
-
-```bash
-pnpm typecheck   # tsc, no emit
-pnpm build        # bundles ESM + CJS + type declarations to dist/
-```
-
-## Publishing to npm
-
-1. Make sure you're logged in: `pnpm login`
-2. If you don't own the `@aaru` scope, rename the package first: edit `"name"` in `package.json` (e.g. `@yourscope/ui-kit` or a plain unscoped name like `aaru-ui-kit`).
-3. Bump the version: `pnpm version patch` (or `minor` / `major`)
-4. Build and publish:
-   ```bash
-   pnpm build
-   pnpm publish --access public
-   ```
-
-The `files` and `exports` fields in `package.json` are already set up so only `dist/` ships, and consumers get proper ESM/CJS/type resolution plus a separate `styles.css` entry point.
-
-## Deploying Storybook
-
-Two ready-made GitHub Actions workflows are included in `.github/workflows/`:
-
-- **`ci.yml`** — runs typecheck, tests, and build on every push/PR.
-- **`deploy-storybook.yml`** — builds Storybook and deploys it to GitHub Pages on every push to `main`.
-
-To turn the deploy on:
-
-1. Push this repo to GitHub.
-2. In the repo settings, go to **Pages** and set the source to **GitHub Actions**.
-3. Push to `main` (or run the workflow manually from the Actions tab).
-4. Your Storybook will be live at `https://<username>.github.io/<repo-name>/`.
-
-No account or token setup needed since GitHub Pages deploys use the repo's built-in permissions.
-
-If you'd rather not use GitHub Pages, `npx chromatic --project-token=<token>` (after creating a free project at chromatic.com) is a one-command alternative that also gives you visual regression testing.
-
 ## Project structure
 
 ```
@@ -105,9 +86,15 @@ src/
       Button.tsx
       Button.test.tsx
       Button.stories.tsx
-    ...
-  index.ts          # public exports
-  styles/globals.css
+    Modal/
+    TextInput/
+    Checkbox/
+    Select/
+    Card/
+    Badge/
+    Tabs/
+  index.ts               # public exports
+  styles/globals.css      # Tailwind entry point
 .storybook/
   main.ts
   preview.tsx
@@ -116,6 +103,36 @@ src/
   deploy-storybook.yml
 ```
 
+## Available scripts
+
+All run with `pnpm <script>`, for example `pnpm build`:
+
+| Script | What it does |
+|---|---|
+| `dev` | Starts the Vite dev server for `src/App.tsx`, a local scratch playground |
+| `build` | Builds the library to `dist/` (ESM, CJS, type declarations, CSS) |
+| `typecheck` | Runs `tsc --noEmit` against the library source (`tsconfig.build.json`) |
+| `lint` | Runs `oxlint` |
+| `preview` | Previews the Vite build output |
+| `test` | Runs the Jest test suite once |
+| `test:watch` | Runs Jest in watch mode |
+| `test:coverage` | Runs Jest with a coverage report |
+| `storybook` | Starts Storybook at `localhost:6006` |
+| `build-storybook` | Builds the static Storybook site to `storybook-static/` |
+
+## Running the project locally
+
+```bash
+pnpm install
+pnpm storybook   # browse components
+pnpm test        # run the test suite
+pnpm build       # build the library
+```
+
+## Publishing / deploying
+
+See [PUBLISHING.md](./PUBLISHING.md) for the full pnpm-based publish workflow and the GitHub Pages Storybook deploy.
+
 ## License
 
-MIT
+MIT (declared in `package.json`).
