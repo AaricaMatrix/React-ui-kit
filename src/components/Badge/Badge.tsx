@@ -8,11 +8,11 @@ export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 const toneClasses: Record<BadgeTone, string> = {
-  neutral: 'bg-gray-100 text-gray-700',
-  brand: 'bg-brand-100 text-brand-700',
-  success: 'bg-green-100 text-green-700',
-  danger: 'bg-danger-500/10 text-danger-600',
-  warning: 'bg-amber-100 text-amber-700',
+  neutral: 'bg-gray-100 text-gray-700 dark:bg-slate-800 dark:text-slate-300',
+  brand: 'bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-300',
+  success: 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300',
+  danger: 'bg-danger-500/10 text-danger-600 dark:bg-danger-500/20 dark:text-danger-500',
+  warning: 'bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300',
 };
 
 /** A small pill used to label status, category, or count. */

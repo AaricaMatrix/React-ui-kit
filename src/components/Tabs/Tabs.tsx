@@ -65,7 +65,7 @@ export function Tabs({ tabs, defaultTabId, activeTabId, onChange, className }: T
 
   return (
     <div className={className}>
-      <div role="tablist" aria-label="Tabs" onKeyDown={handleKeyDown} className="flex border-b border-gray-200">
+      <div role="tablist" aria-label="Tabs" onKeyDown={handleKeyDown} className="flex border-b border-gray-200 dark:border-slate-700">
         {tabs.map((tab) => {
           const isSelected = tab.id === currentId;
           return (
@@ -83,9 +83,9 @@ export function Tabs({ tabs, defaultTabId, activeTabId, onChange, className }: T
                 '-mb-px border-b-2 px-4 py-2 text-sm font-medium transition-colors',
                 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-600',
                 isSelected
-                  ? 'border-brand-600 text-brand-700'
-                  : 'border-transparent text-gray-500 hover:text-gray-700',
-                tab.disabled && 'cursor-not-allowed text-gray-300 hover:text-gray-300',
+                  ? 'border-brand-600 text-brand-700 dark:border-brand-400 dark:text-brand-300'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-slate-500 dark:hover:text-slate-300',
+                tab.disabled && 'cursor-not-allowed text-gray-300 hover:text-gray-300 dark:text-slate-700 dark:hover:text-slate-700',
               )}
             >
               {tab.label}
@@ -98,7 +98,7 @@ export function Tabs({ tabs, defaultTabId, activeTabId, onChange, className }: T
           role="tabpanel"
           id={`${baseId}-panel-${activeTab.id}`}
           aria-labelledby={`${baseId}-tab-${activeTab.id}`}
-          className="py-4 text-sm text-gray-700"
+          className="py-4 text-sm text-gray-700 dark:text-slate-300"
         >
           {activeTab.content}
         </div>

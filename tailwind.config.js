@@ -1,20 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{js,ts,jsx,tsx}', './.storybook/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}', './.storybook/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
         brand: {
-          50: '#f2f4ff',
-          100: '#e6e9fe',
-          200: '#c3caf9',
-          300: '#9fa9f3',
-          400: '#7b88ec',
-          500: '#5766e0',
-          600: '#4351c2',
-          700: '#333e97',
-          800: '#252c6b',
-          900: '#171b40',
+          50: '#f5f3ff',
+          100: '#ede9fe',
+          200: '#ddd6fe',
+          300: '#c4b5fd',
+          400: '#a78bfa',
+          500: '#8b5cf6',
+          600: '#7c3aed',
+          700: '#6d28d9',
+          800: '#5b21b6',
+          900: '#4c1d95',
         },
         danger: {
           500: '#e0575e',

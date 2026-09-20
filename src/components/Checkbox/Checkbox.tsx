@@ -16,14 +16,14 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
 
     return (
       <div className="flex flex-col gap-1">
-        <label htmlFor={inputId} className="flex cursor-pointer items-center gap-2 text-sm text-gray-700">
+        <label htmlFor={inputId} className="flex cursor-pointer items-center gap-2 text-sm text-gray-700 dark:text-slate-300">
           <input
             ref={ref}
             id={inputId}
             type="checkbox"
             className={clsx(
-              'h-4 w-4 rounded border-gray-300 text-brand-600',
-              'focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-1',
+              'h-4 w-4 rounded border-gray-300 text-brand-600 dark:border-slate-600 dark:bg-slate-900',
+              'focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-1 dark:ring-offset-slate-900',
               error && 'border-danger-500',
               className,
             )}

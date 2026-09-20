@@ -108,24 +108,24 @@ export function Modal({
         aria-label={title ?? undefined}
         tabIndex={-1}
         className={clsx(
-          'w-full rounded-xl bg-white p-6 shadow-xl outline-none',
+          'w-full rounded-xl bg-white p-6 shadow-xl outline-none dark:bg-slate-900',
           sizeClasses[size],
         )}
       >
         {title && (
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-slate-100">{title}</h2>
             <button
               type="button"
               aria-label="Close"
               onClick={onClose}
-              className="rounded-md p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-600"
+              className="rounded-md p-1 text-gray-400 hover:bg-gray-100 hover:text-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-600 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-300"
             >
               ✕
             </button>
           </div>
         )}
-        <div className="text-sm text-gray-700">{children}</div>
+        <div className="text-sm text-gray-700 dark:text-slate-300">{children}</div>
         {footer && <div className="mt-6 flex justify-end gap-2">{footer}</div>}
       </div>
     </div>,

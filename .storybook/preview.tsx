@@ -1,13 +1,94 @@
 import type { Preview } from '@storybook/react-vite'
+import aaruTheme from './aaruTheme'
 import '../src/styles/globals.css'
 
 const preview: Preview = {
+  globalTypes: {
+    theme: {
+      description: 'Light / dark theme for the component preview',
+      toolbar: {
+        icon: 'circlehollow',
+        title: 'Theme',
+        items: [
+          { value: 'light', icon: 'sun', title: 'Light' },
+          { value: 'dark', icon: 'moon', title: 'Dark' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+
+  initialGlobals: {
+    theme: 'light',
+  },
+
+  decorators: [
+    (Story, context) => {
+      const isDark = context.globals.theme === 'dark';
+      return (
+        <div
+          className={isDark ? 'dark' : ''}
+          style={{
+            minHeight: '100%',
+            padding: '2rem',
+            background: isDark ? '#171b40' : 'transparent',
+            transition: 'background-color 0.2s ease',
+          }}
+        >
+          <Story />
+        </div>
+      );
+    },
+  ],
+
   parameters: {
     layout: 'centered',
+
+    options: {
+      storySort: {
+        order: [
+          'Introduction',
+          'Components',
+          ['Button', 'TextInput', 'Checkbox', 'Select', 'Card', 'Badge', 'Modal', 'Tabs'],
+        ],
+      },
+    },
+
+    backgrounds: {
+      default: 'canvas',
+      options: {
+        canvas: { name: 'Canvas', value: '#f5f3ff' },
+        white: { name: 'White', value: '#ffffff' },
+        dark: { name: 'Dark', value: '#171b40' },
+      },
+    },
+
+    viewport: {
+      options: {
+        mobile: {
+          name: 'Mobile',
+          styles: { width: '375px', height: '667px' },
+        },
+        tablet: {
+          name: 'Tablet',
+          styles: { width: '768px', height: '1024px' },
+        },
+        desktop: {
+          name: 'Desktop',
+          styles: { width: '1280px', height: '800px' },
+        },
+      },
+    },
+
+    docs: {
+      theme: aaruTheme,
+      toc: true,
+    },
+
     controls: {
       matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
+        color: /(background|color)$/i,
+        date: /Date$/i,
       },
     },
 
@@ -15,8 +96,8 @@ const preview: Preview = {
       // 'todo' - show a11y violations in the test UI only
       // 'error' - fail CI on a11y violations
       // 'off' - skip a11y checks entirely
-      test: 'todo'
-    }
+      test: 'todo',
+    },
   },
 };
 
