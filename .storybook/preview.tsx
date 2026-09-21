@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/react-vite'
 import aaruTheme from './aaruTheme'
+import { CustomDocsPage } from './CustomDocsPage'
 import '../src/styles/globals.css'
 
 const preview: Preview = {
@@ -30,8 +31,10 @@ const preview: Preview = {
           className={isDark ? 'dark' : ''}
           style={{
             minHeight: '100%',
-            padding: '2rem',
-            background: isDark ? '#171b40' : 'transparent',
+            padding: '2.5rem',
+            background: isDark
+              ? 'radial-gradient(circle at 50% 0%, rgba(167,139,250,0.12), transparent 65%), #14101f'
+              : 'radial-gradient(circle at 50% 0%, rgba(139,92,246,0.06), transparent 65%), transparent',
             transition: 'background-color 0.2s ease',
           }}
         >
@@ -83,6 +86,7 @@ const preview: Preview = {
     docs: {
       theme: aaruTheme,
       toc: true,
+      page: CustomDocsPage,
     },
 
     controls: {

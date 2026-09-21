@@ -1,0 +1,157 @@
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+<style>
+  /* ============================================================
+     @aaru/ui-kit — Storybook docs/preview iframe redesign
+     Targets the actual rendered Docs Blocks DOM:
+     .sbdocs*, .docblock-argstable-head/body, .docs-story,
+     .toc-wrapper, and Prism's pre[class*="language-"] convention.
+     ============================================================ */
+
+  :root {
+    --aaru-font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --aaru-font-mono: 'JetBrains Mono', 'Fira Code', 'SFMono-Regular', Consolas, monospace;
+
+    --aaru-bg-0: #f6f4fd;
+    --aaru-bg-1: #ffffff;
+    --aaru-surface: #ffffff;
+    --aaru-border: rgba(124, 58, 237, 0.14);
+    --aaru-accent: #7c3aed;
+    --aaru-accent-soft: rgba(139, 92, 246, 0.10);
+    --aaru-text: #2e1065;
+    --aaru-text-muted: #6d5a94;
+    --aaru-code-bg: #1e1533;
+    --aaru-code-text: #e9e2fb;
+    --aaru-code-border: rgba(167, 139, 250, 0.25);
+    --aaru-shadow-md: 0 8px 24px rgba(76, 29, 149, 0.10);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --aaru-bg-0: #14101f;
+      --aaru-bg-1: #1b1530;
+      --aaru-surface: #201a38;
+      --aaru-border: rgba(167, 139, 250, 0.18);
+      --aaru-accent: #a78bfa;
+      --aaru-accent-soft: rgba(167, 139, 250, 0.14);
+      --aaru-text: #ede9fe;
+      --aaru-text-muted: #b8a9dd;
+      --aaru-code-bg: #0f0a1c;
+      --aaru-code-text: #e9e2fb;
+      --aaru-code-border: rgba(167, 139, 250, 0.2);
+      --aaru-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  body {
+    background: var(--aaru-bg-0) !important;
+  }
+
+  /* ---- Docs page typography hierarchy ---- */
+  .sbdocs.sbdocs-content {
+    font-family: var(--aaru-font-sans) !important;
+    color: var(--aaru-text);
+    max-width: 880px;
+  }
+
+  .sbdocs-title {
+    font-weight: 800 !important;
+    letter-spacing: -0.02em;
+    color: var(--aaru-text) !important;
+  }
+
+  .sbdocs-subtitle {
+    color: var(--aaru-text-muted) !important;
+    font-weight: 500 !important;
+  }
+
+  .sbdocs h2 {
+    font-weight: 700 !important;
+    letter-spacing: -0.01em;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--aaru-border);
+  }
+
+  .sbdocs h3 {
+    font-weight: 600 !important;
+  }
+
+  .sbdocs p, .sbdocs li {
+    color: var(--aaru-text-muted);
+    line-height: 1.65;
+  }
+
+  /* ---- Live story stage inside docs pages: the "design lab" card ---- */
+  .docs-story {
+    background:
+      radial-gradient(circle at 50% 0%, var(--aaru-accent-soft), transparent 65%),
+      var(--aaru-surface) !important;
+    border: 1px solid var(--aaru-border) !important;
+    border-radius: 16px !important;
+    box-shadow: var(--aaru-shadow-md);
+  }
+
+  /* ---- Props / API table ---- */
+  .docblock-argstable-head {
+    background: var(--aaru-accent-soft) !important;
+  }
+
+  .docblock-argstable-head th {
+    font-family: var(--aaru-font-sans) !important;
+    font-weight: 600 !important;
+    color: var(--aaru-text) !important;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  .docblock-argstable-body td {
+    border-color: var(--aaru-border) !important;
+  }
+
+  .docblock-argstable-body tr:hover {
+    background: var(--aaru-accent-soft) !important;
+  }
+
+  .docblock-argstable-body code {
+    font-family: var(--aaru-font-mono) !important;
+    background: var(--aaru-accent-soft);
+    border-radius: 4px;
+    padding: 1px 6px;
+  }
+
+  /* ---- Code blocks (Prism syntax highlighting) ---- */
+  pre[class*='language-'] {
+    background: var(--aaru-code-bg) !important;
+    border: 1px solid var(--aaru-code-border) !important;
+    border-radius: 12px !important;
+    padding: 16px !important;
+    box-shadow: var(--aaru-shadow-md);
+  }
+
+  pre[class*='language-'] code,
+  code[class*='language-'] {
+    font-family: var(--aaru-font-mono) !important;
+    color: var(--aaru-code-text) !important;
+    font-size: 13px;
+  }
+
+  /* ---- Table of contents (anchored section nav) ---- */
+  .toc-wrapper a {
+    color: var(--aaru-text-muted) !important;
+    transition: color 0.12s ease;
+  }
+  .toc-wrapper a:hover {
+    color: var(--aaru-accent) !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .toc-wrapper a {
+      transition: none !important;
+    }
+  }
+</style>

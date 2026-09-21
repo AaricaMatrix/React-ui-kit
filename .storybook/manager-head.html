@@ -1,0 +1,162 @@
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+  rel="stylesheet"
+/>
+<style>
+  /* ============================================================
+     @aaru/ui-kit — Storybook manager shell redesign
+     Targets Storybook 10's actual rendered DOM hooks:
+     #storybook-sidebar-region, #storybook-explorer-searchfield,
+     #storybook-explorer-tree, [data-selected="true"],
+     .sb-preview-toolbar, #storybook-preview-wrapper,
+     #storybook-panel-root. These are internal, not a public API,
+     so a future Storybook major version may need this file touched up.
+     ============================================================ */
+
+  :root {
+    --aaru-font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --aaru-font-mono: 'JetBrains Mono', 'Fira Code', 'SFMono-Regular', Consolas, monospace;
+
+    --aaru-bg-0: #f6f4fd;
+    --aaru-bg-1: #ffffff;
+    --aaru-surface-glass: rgba(255, 255, 255, 0.72);
+    --aaru-border: rgba(124, 58, 237, 0.14);
+    --aaru-border-strong: rgba(124, 58, 237, 0.28);
+    --aaru-accent: #8b5cf6;
+    --aaru-accent-soft: rgba(139, 92, 246, 0.12);
+    --aaru-accent-glow: rgba(139, 92, 246, 0.35);
+    --aaru-text: #2e1065;
+    --aaru-text-muted: #6d5a94;
+    --aaru-shadow-sm: 0 1px 2px rgba(76, 29, 149, 0.06);
+    --aaru-shadow-md: 0 8px 24px rgba(76, 29, 149, 0.10);
+    --aaru-shadow-lg: 0 16px 48px rgba(76, 29, 149, 0.16);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --aaru-bg-0: #14101f;
+      --aaru-bg-1: #1b1530;
+      --aaru-surface-glass: rgba(27, 21, 48, 0.72);
+      --aaru-border: rgba(167, 139, 250, 0.16);
+      --aaru-border-strong: rgba(167, 139, 250, 0.32);
+      --aaru-accent: #a78bfa;
+      --aaru-accent-soft: rgba(167, 139, 250, 0.16);
+      --aaru-accent-glow: rgba(167, 139, 250, 0.45);
+      --aaru-text: #ede9fe;
+      --aaru-text-muted: #b8a9dd;
+      --aaru-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+      --aaru-shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+      --aaru-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  html, body, #root {
+    font-family: var(--aaru-font-sans) !important;
+  }
+
+  body {
+    background:
+      radial-gradient(ellipse 900px 500px at 8% -10%, var(--aaru-accent-soft), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 0%, rgba(196, 181, 253, 0.18), transparent 55%),
+      var(--aaru-bg-0) !important;
+    background-attachment: fixed !important;
+  }
+
+  #storybook-sidebar-region {
+    background: var(--aaru-surface-glass) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    backdrop-filter: blur(14px) saturate(160%);
+    border-right: 1px solid var(--aaru-border) !important;
+    box-shadow: var(--aaru-shadow-sm);
+  }
+
+  #storybook-explorer-menu {
+    padding-top: 4px;
+  }
+
+  #storybook-explorer-searchfield,
+  #storybook-explorer-searchfield input {
+    border-radius: 999px !important;
+    border: 1px solid var(--aaru-border) !important;
+    background: var(--aaru-bg-1) !important;
+    color: var(--aaru-text) !important;
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+
+  #storybook-explorer-searchfield:focus-within {
+    border-color: var(--aaru-accent) !important;
+    box-shadow: 0 0 0 3px var(--aaru-accent-soft) !important;
+  }
+
+  #storybook-explorer-tree {
+    font-family: var(--aaru-font-sans);
+    padding: 4px 6px;
+  }
+
+  #storybook-explorer-tree a,
+  #storybook-explorer-tree button {
+    border-radius: 8px !important;
+    transition: background-color 0.12s ease, color 0.12s ease, transform 0.12s ease;
+  }
+
+  #storybook-explorer-tree a:hover,
+  #storybook-explorer-tree button:hover {
+    background: var(--aaru-accent-soft) !important;
+  }
+
+  #storybook-explorer-tree [data-selected="true"] {
+    background: var(--aaru-accent-soft) !important;
+    color: var(--aaru-accent) !important;
+    font-weight: 600 !important;
+    box-shadow: inset 3px 0 0 0 var(--aaru-accent);
+  }
+
+  .sb-preview-toolbar {
+    background: var(--aaru-surface-glass) !important;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--aaru-border) !important;
+  }
+
+  #storybook-preview-wrapper {
+    background:
+      radial-gradient(circle at 50% 0%, var(--aaru-accent-soft), transparent 65%),
+      var(--aaru-bg-1) !important;
+    border-radius: 16px;
+    box-shadow: var(--aaru-shadow-md);
+  }
+
+  #storybook-preview-iframe {
+    border-radius: 12px;
+  }
+
+  #storybook-panel-root {
+    background: var(--aaru-bg-1) !important;
+    border-top: 1px solid var(--aaru-border) !important;
+  }
+
+  #storybook-sidebar-region *::-webkit-scrollbar,
+  #storybook-panel-root *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  #storybook-sidebar-region *::-webkit-scrollbar-thumb,
+  #storybook-panel-root *::-webkit-scrollbar-thumb {
+    background: var(--aaru-border-strong);
+    border-radius: 999px;
+  }
+  #storybook-sidebar-region *::-webkit-scrollbar-track,
+  #storybook-panel-root *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #storybook-explorer-tree a,
+    #storybook-explorer-tree button,
+    #storybook-explorer-searchfield {
+      transition: none !important;
+    }
+  }
+</style>
